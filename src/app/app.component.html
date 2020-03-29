@@ -1,2 +1,29 @@
 <topo></topo>
-<app-painel></app-painel>
+<div *ngIf="jogoEmAndamento; else fimDeJogo">
+    <!--Defino o binding da funcao, a funcao e recupero o que foi exposto pelo componente filho pelo $event-->
+    <app-painel (encerrarJogo)="encerrarJogo($event)"></app-painel>
+</div>
+
+<!--FUNCIONA COMO TEMPLATE PORÉM SEM COMPONENTE-->
+<!--NESSE CASO EU APONTO PARA O ELSE DO NGIF ACIMA, PODERIA SER SEM ISSO-->
+<ng-template #fimDeJogo>
+    <div *ngIf="encerramento == 'derrota'; else fimDeJogoVitoria" class="container" style="margin-top: 50px">
+        <div class="row">
+            <div class="col">
+                <h3 style="color: red"> Fim de jogo, você perdeu :S !</h3>
+                <button class="btn btn-danger" (click)="reiniciarJogo()">JOGAR NOVAMENTE</button>       
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #fimDeJogoVitoria>
+    <div class="container" style="margin-top: 50px">
+        <div class="row">
+            <div class="col">
+                <h3 style="color: green"> Fim de jogo, você ganhou :D !</h3>
+                <button class="btn btn-success" (click)="reiniciarJogo()">JOGAR NOVAMENTE</button>  
+            </div>
+        </div>
+    </div>
+</ng-template>

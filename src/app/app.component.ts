@@ -6,5 +6,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent {
-  title = 'hello-world';
+  public title: string = 'hello-world';
+
+  public jogoEmAndamento: boolean = true;
+  public encerramento: string = '';
+
+  public encerrarJogo(tipo : string) : void {
+      this.jogoEmAndamento = false;
+      this.encerramento = tipo;
+  }
+
+  public reiniciarJogo() : void {
+    this.jogoEmAndamento = true;
+    this.encerramento = '';
+  }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { Frase } from '../../shared/frase.model'; 
 import { FRASES } from './frase.mock';
 
@@ -21,12 +21,18 @@ export class PainelComponent implements OnInit {
   //CRIO ESSA VARIAVEL PARA MANDAR PRO COMPONENTE FILHO NÃO ESQUECENDO DA DIRETIVA NO HTML
   public tentativas: number = 3;
 
+  //EMITIR UM EVENTO PRO COMPONENTE PAI
+  //COM UM OUTPUT PARA EMITIR/DECORAR PARA O PAI COM O TIPO STRING (PODE SER QLQR TIPO)
+  @Output() public encerrarJogo : EventEmitter<string> = new EventEmitter();
+
   
   constructor() { 
     this.atualizaRodada();
   }
 
   ngOnInit() {}
+
+  ngOnDestroy() {}
 
   //$event no html = recupera o estado do html no DOM.
   public atualizaResposta(valor: Event) : void {
@@ -39,8 +45,10 @@ export class PainelComponent implements OnInit {
         this.progresso = this.progresso + (100 / this.frases.length);
         this.rodada++;
 
-        if(this.rodada >= this.frases.length) {
+        if(this.rodada == this.frases.length) {
+          //EMITO PARA O COMPONENTE PAI
           this.rodada = 0;
+          this.encerrarJogo.emit('vitoria');
         }
 
         this.atualizaRodada();
@@ -48,11 +56,12 @@ export class PainelComponent implements OnInit {
     } else {
         this.tentativas--;
 
+        //SE ACABOU O JOGO
         if(this.tentativas == -1){
-          alert('Você perdeu todas as tentativas!');
           this.rodada = 0;
           this.rodadaFrase = this.frases[this.rodada];
           this.tentativas = 3;
+          this.encerrarJogo.emit('derrota');
         }
           
     }
