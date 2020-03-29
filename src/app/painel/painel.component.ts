@@ -18,6 +18,7 @@ export class PainelComponent implements OnInit {
 
   public progresso: number = 0;
 
+  //CRIO ESSA VARIAVEL PARA MANDAR PRO COMPONENTE FILHO NÃO ESQUECENDO DA DIRETIVA NO HTML
   public tentativas: number = 3;
 
   

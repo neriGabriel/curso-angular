@@ -8,6 +8,7 @@ import { Coracao } from '../../shared/coracao.model';
 })
 export class TentativasComponent implements OnInit, OnChanges {
 
+  //RECEBENDO UMA 'VARIAVEL' DE OUTRO COMPONENTE PAI
   @Input() public tentativas: number;
 
   public coracoes: Array<Coracao> = [
@@ -20,6 +21,9 @@ export class TentativasComponent implements OnInit, OnChanges {
 
   ngOnInit() {}
 
+  //SEMPRE QUE HOUVER UMA ALTERAÇÃO NO COMPONENTE PAI FAZ O COMPONENTE FILHO CHECAR ESSA ALTERAÇÃO, OU
+  //SEMPRE QUE HOUVER UMA ALTERAÇÃO EM UMA VARIAVEL ENVIADA DO COMPONENTE PAI CHECA ESSA ALTERAÇÃO NO
+  //COMPONENTE FILHO
   ngOnChanges() { 
     if(this.tentativas != this.coracoes.length) {
       let indice = this.coracoes.length - this.tentativas;
